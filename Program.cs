@@ -53,7 +53,7 @@
                                     Console.WriteLine("Username must have a form like this example@example1.\nexample3 you can use (-) (_) (.) signs.\n");
                                     Console.Write("Enter username: ");
                                     username = Console.ReadLine().ToLower();        // for being case insensitive.
-                                     
+
                                     if (User.regex(username) && !Admin.allUsers.Exists(u => u.Username == username))
                                         break;
                                     else
@@ -177,7 +177,7 @@
                                 {
 
                                     Guid myGuid = Guid.NewGuid();               // generates new global id.
-                                    string guidString = myGuid.ToString();      
+                                    string guidString = myGuid.ToString();
                                     DateTime sentTime = DateTime.Now;          // saves initiation time.
 
                                     Email tmp = new Email(guidString, username, sentTime);
@@ -185,9 +185,10 @@
                                     tmp.Sender = username;
                                     tmp.SentTime = sentTime;
 
+                                    Console.WriteLine("Now you can compose your email, please select what you want to fill");
+
                                     while (true)
                                     {
-                                        Console.WriteLine("Now you can compose your email, please select what you want to fill");
                                         Console.WriteLine("1- Recipient");
                                         Console.WriteLine("2- Subject");
                                         Console.WriteLine("3- Body");
@@ -202,13 +203,13 @@
                                             if (Admin.allUsers.Exists(l => l.Username == receiver))
                                             {
                                                 tmp.Receiver = receiver;
-                                                
+
                                             }
                                             else
                                             {
                                                 Console.WriteLine("Wrong email recipient!!! Please try again\n");
                                             }
-                                           
+
                                         }
                                         else if (composing == "2")
                                         {
@@ -231,7 +232,7 @@
                                                 Admin.allUsers.Find(l => l.Username == tmp.Sender).sentMessages.Add(tmp);
                                                 Admin.allUsers.Find(l => l.Username == tmp.Receiver).inbox.Add(tmp);
                                                 Console.WriteLine("Email sent successfully.\n");
-
+                                                
 
                                             }
                                             // if nabood bege por nist va break
@@ -239,6 +240,7 @@
                                             {
                                                 Console.WriteLine("Email has not the requirements to be sent. Please fill subject or body\n");   // try-catch
                                             }
+                                            return;
                                         }
                                         else if (composing == "5")
                                         {
@@ -251,7 +253,7 @@
                                     }
 
                                 }
-                                else if (wduwd =="2")
+                                else if (wduwd == "2")
                                 {
                                     // inbox
                                     User tmpUser = Admin.allUsers.Find(l => l.Username == username);
@@ -273,31 +275,90 @@
                                         string inboxDecision = Console.ReadLine();
                                         if (inboxDecision == "1")
                                         {
-                                            Console.Write("Enter email number: ");
-                                            int emailId = int.Parse(Console.ReadLine());
-                                            str = "";
-                                            str += "Sender Email: " + tmpUser.inbox[emailId].Sender + "\nReceiver Email: " + tmpUser.inbox[emailId].Receiver +"\nSubject: " + tmpUser.inbox[emailId].Subject + "\nBody: " + tmpUser.inbox[emailId].Body;
-                                            Console.WriteLine(str);
-
-                                            Console.WriteLine("1- Reply");
-                                            Console.WriteLine("2- Exit");
-                                            string emailDecision = Console.ReadLine();
-
-                                            if (emailDecision == "1")
+                                            while (true)
                                             {
-                                                Console.WriteLine("1- Subject");
-                                                Console.WriteLine("2- Body");
-                                                Console.WriteLine("3- Send");
-                                                Console.WriteLine("4- Exit");
+                                                Console.Write("Enter email number: ");
+                                                int emailId = int.Parse(Console.ReadLine());
+                                                str = "";
+                                                str += "Sender Email: " + tmpUser.inbox[emailId].Sender + "\nReceiver Email: " + tmpUser.inbox[emailId].Receiver + "\nSubject: " + tmpUser.inbox[emailId].Subject + "\nBody: " + tmpUser.inbox[emailId].Body;
+                                                Console.WriteLine(str);
 
-                                            }
-                                            else if (emailDecision == "2")
-                                            {
-                                                // exit
-                                            }
-                                            else
-                                            {
-                                                Console.WriteLine("Wrong input!!! Please try again");
+                                                Console.WriteLine("1- Reply");
+                                                Console.WriteLine("2- Exit");
+                                                string emailDecision = Console.ReadLine();
+
+                                                if (emailDecision == "1")
+                                                {
+
+                                                    Guid myGuid = Guid.NewGuid();
+                                                    string guidString = myGuid.ToString();
+                                                    DateTime sentTime = DateTime.Now;
+                                                    Email tmp = new Email(guidString, tmpUser.inbox[emailId].Receiver, sentTime);
+                                                    tmp.Id = guidString;
+                                                    tmp.Sender = username;
+                                                    tmp.SentTime = sentTime;
+
+                                                    while (true)
+                                                    {
+
+                                                        Console.WriteLine("1- Subject");
+                                                        Console.WriteLine("2- Body");
+                                                        Console.WriteLine("3- Send");
+                                                        Console.WriteLine("4- Exit");
+                                                        string composing = Console.ReadLine();
+
+                                                        if (composing == "1")
+                                                        {
+                                                            Console.Write("Enter Subject: ");
+                                                            string subject = Console.ReadLine();
+                                                            tmp.Subject = subject;
+                                                        }
+                                                        else if (composing == "2")
+                                                        {
+                                                            Console.Write("Enter Body: ");
+                                                            string body = Console.ReadLine();
+                                                            tmp.Body = body;
+                                                        }
+                                                        else if (composing == "3")
+                                                        {
+                                                            // if por bood
+                                                            if (Email.isAbleToSend(tmp))
+                                                            {
+                                                                Admin.allEmails.Add(tmp);
+                                                                Admin.allUsers.Find(l => l.Username == tmp.Sender).sentMessages.Add(tmp);
+                                                                Admin.allUsers.Find(l => l.Username == tmp.Receiver).inbox.Add(tmp);
+                                                                Console.WriteLine("Reply sent successfully.\n");
+                                                                
+
+
+                                                            }
+                                                            // if nabood bege por nist va break
+                                                            else
+                                                            {
+                                                                Console.WriteLine("Reply has not the requirements to be sent. Please fill subject or body\n");   // try-catch
+                                                            }
+                                                            return;
+                                                        }
+                                                        else if (composing == "4")
+                                                        {
+                                                            return;
+                                                        }
+                                                        else
+                                                        {
+                                                            Console.WriteLine("\nWrong input!!! Please try again\n");
+                                                        }
+                                                    }
+
+                                                }
+                                                else if (emailDecision == "2")
+                                                {
+                                                    // exit
+                                                    return;
+                                                }
+                                                else
+                                                {
+                                                    Console.WriteLine("Wrong input!!! Please try again");
+                                                }
                                             }
                                         }
                                         if (inboxDecision == "2")
@@ -308,27 +369,28 @@
                                     }
 
                                 }
-                                else if (wduwd =="3")
+                                else if (wduwd == "3")
                                 {
                                     // sent
                                 }
-                                else if (wduwd =="4")
+                                else if (wduwd == "4")
                                 {
                                     // draft
                                 }
-                                else if (wduwd =="5")
+                                else if (wduwd == "5")
                                 {
                                     // trash
                                 }
-                                else if (wduwd =="6")
+                                else if (wduwd == "6")
                                 {
                                     // block
+
                                 }
-                                else if (wduwd =="7")
+                                else if (wduwd == "7")
                                 {
                                     // view blocked users
                                 }
-                                else if (wduwd =="8")
+                                else if (wduwd == "8")
                                 {
                                     // logout
                                     return;
