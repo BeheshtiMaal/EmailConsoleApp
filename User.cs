@@ -4,20 +4,23 @@ namespace EmailConsoleApp
 {
     internal class User
     {
+        //public string userId { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public DateTime registrationTime { get; set; }
-
         public bool isBanned = false;
-        public List<User> blockedUsers = new List<User>();
-       // public int blockedUsersCount=0;
-        public List<Email> sentMessages = new List<Email>();
-        // public int sentMessagesCount=0;
-        public List<Email> inbox = new List<Email>();             // mishe vaqti register kard ye mail khoshaamad gooie goft.
-        //public int inboxCount=0;
+        public static List<User> blockedUsers { get; set; } = new List<User>();
+        public List<Email> sentMessages { get; set; } = new List<Email>();
+        public List<Email> inbox { get; set; } = new List<Email>();             // mishe vaqti register kard ye mail khoshaamad gooie goft.
+        public List<Email> drafts { get; set; } = new List<Email>();
+        public List<Email> trash { get; set; } = new List<Email>();
 
-        public User(string username, string password, DateTime regtime)
+        public User(string firstname, string lastname, string username, string password, DateTime regtime)
         {
+            firstName = firstname;
+            lastName = lastname;
             Username = username;
             Password = password;
             registrationTime = regtime;
