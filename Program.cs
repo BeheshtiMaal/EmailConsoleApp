@@ -165,8 +165,8 @@
                             Console.WriteLine("3- Sent");               // delete kone mire to trash - view email -> reply
                             Console.WriteLine("4- Drafts");             // delete kone mire to trash - view email - send
                             Console.WriteLine("5- Trash");              // view email - restore to previous folder
-                            Console.WriteLine("6- Block a user");
-                            Console.WriteLine("7- View Blocked users"); // unblock user
+                            //Console.WriteLine("6- Block a user");
+                            //Console.WriteLine("7- View Blocked users"); // unblock user
                             Console.WriteLine("8- Logout");
 
 
