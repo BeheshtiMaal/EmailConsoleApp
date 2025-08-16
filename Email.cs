@@ -4,12 +4,11 @@ namespace EmailConsoleApp
 {
     internal class Email
     {
-        public string Id { get; set; }          // Guid myGuid = Guid.NewGuid();string guidString = myGuid.ToString();
+        public string Id { get; set; }          
         public string Sender { get; set; }
         public string Receiver { get; set; }
-        public bool Reply = false;      // Direct(0) or Reply(1) message
-        public DateTime SentTime { get; set; }      // DateTime currentLocalTime = DateTime.Now; .UtcNow 
-        //DateTime openedTime;    // Nullable at sent time. after opening the email, it takes value.
+        public bool isDraft { get; set; } = false;
+        public DateTime SentTime { get; set; }     
         public string Subject { get; set; }
         public string Body { get; set; }
         

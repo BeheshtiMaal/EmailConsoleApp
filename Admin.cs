@@ -3,7 +3,7 @@
     internal class Admin
     {
         private static string Username = "admin";
-        private static string Password = "2244";
+        private static string Password = PasswordHasher.Hash("2244");
         public static List<User> allUsers = new List<User>();
         public static List<Email> allEmails = new List<Email>();
         public static int totalUsersCount = 0;

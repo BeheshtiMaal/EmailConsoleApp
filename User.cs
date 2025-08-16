@@ -13,7 +13,7 @@ namespace EmailConsoleApp
         public bool isBanned = false;
         public static List<User> blockedUsers { get; set; } = new List<User>();
         public List<Email> sentMessages { get; set; } = new List<Email>();
-        public List<Email> inbox { get; set; } = new List<Email>();             // mishe vaqti register kard ye mail khoshaamad gooie goft.
+        public List<Email> inbox { get; set; } = new List<Email>();            
         public List<Email> drafts { get; set; } = new List<Email>();
         public List<Email> trash { get; set; } = new List<Email>();
 
